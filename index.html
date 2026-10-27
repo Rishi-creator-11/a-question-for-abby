@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Abby, a question from Ryan</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--night:#1c1648;--plum:#5b2a86;--coral:#ff6b5b;--gold:#ffc857;--mint:#7be0c3;--cream:#fff4e0}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;overflow:hidden}
+body{font-family:'DM Sans',system-ui,sans-serif;color:var(--cream);background:linear-gradient(180deg,#1c1648 0%,#4a2478 45%,#ff6b5b 85%,#ffc857 100%);}
+h1,h2,.pop{font-family:'Bagel Fat One','DM Sans',sans-serif;font-weight:400;letter-spacing:.01em}
+#stars{position:fixed;inset:0;pointer-events:none}
+.sun{position:fixed;left:50%;bottom:9vh;width:min(60vw,340px);aspect-ratio:1;transform:translateX(-50%);border-radius:50%;background:radial-gradient(circle at 50% 40%,#fff2b8,#ffc857 60%,#ff9a5b);box-shadow:0 0 90px 30px rgba(255,200,87,.45);animation:rise 2.4s cubic-bezier(.2,.8,.2,1) both}
+@keyframes rise{from{transform:translate(-50%,40vh);opacity:0}to{transform:translate(-50%,0);opacity:1}}
+.mtn{position:fixed;left:0;right:0;bottom:0;width:100%;height:34vh;pointer-events:none}
+.note{position:fixed;font-size:26px;opacity:.55;animation:float 9s linear infinite;pointer-events:none}
+@keyframes float{from{transform:translateY(105vh) rotate(0)}to{transform:translateY(-15vh) rotate(40deg)}}
+section{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 16px 22vh;text-align:center;opacity:0;visibility:hidden;transition:opacity .6s,visibility .6s;z-index:2}
+section.on{opacity:1;visibility:visible}
+h1{font-size:clamp(2.6rem,10vw,5.6rem);line-height:1.02;text-shadow:0 4px 0 rgba(0,0,0,.25)}
+h1 em{font-style:normal;color:var(--gold)}
+h2{font-size:clamp(1.9rem,7vw,3.4rem);line-height:1.05;margin-bottom:18px}
+p.sub{max-width:34ch;margin:16px auto 28px;font-size:1.15rem;line-height:1.5}
+.btn{font:700 1.1rem 'DM Sans';border:0;border-radius:999px;padding:14px 30px;cursor:pointer;color:var(--night);background:var(--gold);box-shadow:0 6px 0 #c58a1f;transition:transform .12s,box-shadow .12s}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:translateY(4px);box-shadow:0 2px 0 #c58a1f}
+.btn:focus-visible{outline:3px solid var(--cream);outline-offset:3px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:12px;width:min(720px,100%);margin-bottom:26px}
+.card{background:rgba(255,244,224,.12);border:2px solid rgba(255,244,224,.35);border-radius:22px;padding:16px 10px;cursor:pointer;backdrop-filter:blur(6px);transition:transform .25s,background .25s;font:inherit;color:inherit}
+.card:hover,.card.flip{transform:rotate(-3deg) scale(1.06);background:rgba(255,200,87,.28)}
+.card .e{font-size:2.3rem;display:block}
+.card b{display:block;margin:6px 0 4px;font-family:'Bagel Fat One';font-weight:400;font-size:1.25rem}
+.card span.t{font-size:.9rem;line-height:1.35;display:block}
+.ticket{background:var(--cream);color:var(--night);border-radius:20px;padding:20px 26px;margin:6px 0 26px;max-width:380px;position:relative;transform:rotate(-2deg);box-shadow:0 14px 40px rgba(0,0,0,.35)}
+.ticket::before,.ticket::after{content:"";position:absolute;top:50%;width:26px;height:26px;background:#4a2478;border-radius:50%;transform:translateY(-50%)}
+.ticket::before{left:-13px}.ticket::after{right:-13px}
+.ticket .pop{font-size:1.6rem;color:var(--coral)}
+.ticket p{font-size:1rem;line-height:1.5;margin-top:6px}
+.answers{position:relative;display:flex;gap:18px;align-items:center;justify-content:center;min-height:90px}
+#yes{background:var(--mint);box-shadow:0 6px 0 #3aa98a;font-size:1.3rem;transition:transform .2s}
+#no{background:var(--coral);box-shadow:0 6px 0 #b83a2c;color:#fff}
+#no.run{position:fixed;z-index:20;transition:left .25s cubic-bezier(.3,1.6,.5,1),top .25s cubic-bezier(.3,1.6,.5,1)}
+#hint{min-height:1.4em;margin-top:18px;font-weight:500}
+#win{z-index:30;background:radial-gradient(circle at 50% 40%,rgba(255,107,91,.96),rgba(91,42,134,.97))}
+#fx{position:fixed;inset:0;pointer-events:none;z-index:40}
+.polaroid{background:var(--cream);padding:8px 8px 10px;border-radius:6px;box-shadow:0 12px 30px rgba(0,0,0,.4);transform:rotate(-4deg);margin-bottom:18px}
+.polaroid img{display:block;width:clamp(96px,26vh,170px);aspect-ratio:3/4;object-fit:cover;object-position:50% 25%;border-radius:3px}
+.polaroid i{display:block;color:var(--night);font:400 1rem 'Bagel Fat One';margin-top:6px}
+.heart{display:inline-block;animation:beat 1s infinite}
+@keyframes beat{50%{transform:scale(1.25)}}
+@media (prefers-reduced-motion:reduce){.sun,.note,.heart{animation:none}}
+</style>
+</head>
+<body>
+<canvas id="stars"></canvas>
+<div class="sun"></div>
+<svg class="mtn" viewBox="0 0 1200 300" preserveAspectRatio="none" aria-hidden="true">
+  <path d="M0 300V170L120 90l90 80 130-120 150 150 110-90 140 130 120-100 130 110 100-60 110 100V300z" fill="#3a1a66"/>
+  <path d="M0 300V230L150 150l120 100 160-130 140 140 150-110 170 150 130-90 170 120V300z" fill="#1c1648"/>
+</svg>
+
+<section id="s1" class="on">
+  <div class="polaroid"><img src="abby.jpg" alt="Abby"><i>Abby 🦋</i></div>
+  <h1>Hey Abby.<br>I'm Ryan, and I'm <em>super</em> into you.</h1>
+  <p class="sub">Quick tour of me before I ask you something big.</p>
+  <button class="btn" data-next="s2">Show me</button>
+</section>
+
+<section id="s2">
+  <h2>A few things about me</h2>
+  <div class="cards">
+    <button class="card"><span class="e">🎧</span><b>Music</b><span class="t">Always a playlist going. You pick the next song.</span></button>
+    <button class="card"><span class="e">✈️</span><b>Travel</b><span class="t">Passport is ready. Pick a pin on the map.</span></button>
+    <button class="card"><span class="e">🧭</span><b>Exploring</b><span class="t">New streets, hidden spots, best tacos in town.</span></button>
+    <button class="card"><span class="e">💪</span><b>Working out</b><span class="t">Gym buddy spot is open. Spotter included.</span></button>
+    <button class="card"><span class="e">🥾</span><b>Hiking</b><span class="t">Summit views are better with you in them.</span></button>
+  </div>
+  <button class="btn" data-next="s3">Okay, and then?</button>
+</section>
+
+<section id="s3">
+  <h2>You and me, we'd have an amazing time</h2>
+  <div class="ticket">
+    <div class="pop">ADMIT TWO</div>
+    <p>Concerts, road trips, trail sunrises, and lots of laughing. One adventure after another.</p>
+  </div>
+  <button class="btn" data-next="s4">Ask me already</button>
+</section>
+
+<section id="s4">
+  <div class="polaroid"><img src="abby.jpg" alt="Abby"><i>Abby 🦋</i></div>
+  <h1>Abby, will you be my <em>wifey</em>? <span class="heart">💍</span></h1>
+  <div class="answers" id="answers">
+    <button class="btn" id="yes">Yes! 💖</button>
+    <button class="btn" id="no">No</button>
+  </div>
+  <p id="hint"></p>
+</section>
+
+<section id="win">
+  <h1>She said yes! <span class="heart">💖</span></h1>
+  <p class="sub">Best answer ever. Get ready, Abby. Music, mountains, and the whole world are waiting for us.</p>
+  <p class="pop" style="font-size:1.6rem">Love, Ryan</p>
+</section>
+
+<canvas id="fx"></canvas>
+
+<script>
+const $=s=>document.querySelector(s);
+// stars + notes
+const sc=$('#stars'),sx=sc.getContext('2d');let stars=[];
+function sizeStars(){sc.width=innerWidth;sc.height=innerHeight;stars=Array.from({length:90},()=>({x:Math.random()*sc.width,y:Math.random()*sc.height*.6,r:Math.random()*1.6+.3,p:Math.random()*6}))}
+sizeStars();addEventListener('resize',sizeStars);
+(function tw(t){sx.clearRect(0,0,sc.width,sc.height);stars.forEach(s=>{sx.globalAlpha=.4+.6*Math.abs(Math.sin(t/900+s.p));sx.fillStyle='#fff4e0';sx.beginPath();sx.arc(s.x,s.y,s.r,0,7);sx.fill()});requestAnimationFrame(tw)})(0);
+['🎵','🎶','✨','🏔️','✈️','🎸'].forEach((c,i)=>{const n=document.createElement('div');n.className='note';n.textContent=c;n.style.left=(8+i*17)+'vw';n.style.animationDelay=(-i*1.7)+'s';n.style.animationDuration=(8+i)+'s';document.body.appendChild(n)});
+
+// steps
+document.querySelectorAll('[data-next]').forEach(b=>b.onclick=()=>show(b.dataset.next));
+function show(id){document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id===id))}
+document.querySelectorAll('.card').forEach(c=>c.onclick=()=>c.classList.toggle('flip'));
+
+// dodging No
+const no=$('#no'),yes=$('#yes'),hint=$('#hint');let dodges=0;
+const lines=['Nice try 😏','Too slow!','Are you sure?','Think about the hiking trips…','The Yes button looks lonely','I can do this all day','Hint: it is the big one 💖','Okay, now you are just being silly'];
+function dodge(e){
+  if(e&&e.cancelable)e.preventDefault();
+  dodges++;
+  no.classList.add('run');
+  const w=no.offsetWidth,h=no.offsetHeight,m=12;
+  no.style.left=(m+Math.random()*(innerWidth-w-2*m))+'px';
+  no.style.top=(m+Math.random()*(innerHeight-h-2*m))+'px';
+  yes.style.transform='scale('+Math.min(1+dodges*.18,3)+')';
+  hint.textContent=lines[(dodges-1)%lines.length];
+  if(dodges>6)no.textContent=['No','Nope','Nah','Stop'][dodges%4];
+}
+['mouseenter','touchstart','pointerdown','focus'].forEach(ev=>no.addEventListener(ev,dodge,{passive:false}));
+no.addEventListener('click',dodge);
+
+// confetti
+const fc=$('#fx'),fx=fc.getContext('2d');let bits=[];
+function sizeFx(){fc.width=innerWidth;fc.height=innerHeight}sizeFx();addEventListener('resize',sizeFx);
+function burst(){const cols=['#ffc857','#ff6b5b','#7be0c3','#fff4e0','#ff8fd1'];
+  for(let i=0;i<260;i++)bits.push({x:innerWidth/2,y:innerHeight/2,vx:(Math.random()-.5)*18,vy:Math.random()*-16-3,s:Math.random()*8+4,c:cols[i%5],r:Math.random()*6,vr:(Math.random()-.5)*.4,h:Math.random()<.3})}
+(function loop(){fx.clearRect(0,0,fc.width,fc.height);bits=bits.filter(b=>b.y<fc.height+30);bits.forEach(b=>{b.vy+=.28;b.x+=b.vx;b.y+=b.vy;b.r+=b.vr;fx.save();fx.translate(b.x,b.y);fx.rotate(b.r);fx.fillStyle=b.c;if(b.h){fx.font=b.s*3+'px serif';fx.fillText('💖',0,0)}else fx.fillRect(-b.s/2,-b.s/2,b.s,b.s*.6);fx.restore()});requestAnimationFrame(loop)})();
+yes.onclick=()=>{no.style.display='none';show('win');burst();setTimeout(burst,500);setTimeout(burst,1100)};
+</script>
+</body>
+</html>
